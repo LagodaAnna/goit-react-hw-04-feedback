@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import { useState } from 'react';
 import Statistics from './Statistics';
 import FeedbackOptions from './FeedbackOptions';
@@ -11,8 +10,8 @@ export const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const marks = [good, neutral, bad];
-  const options = ['good', 'neutral', 'bad'];
+  const marks = { good, neutral, bad };
+  const options = Object.keys(marks);
   const total = countTotalFeedback(Object.values(marks));
   const positivePercentage = countPositiveFeedbackPercentage(total, good);
 
@@ -20,13 +19,13 @@ export const App = () => {
     const option = evt.currentTarget.textContent;
     switch (option) {
       case 'good':
-        setGood(good + 1);
+        setGood(prevState => prevState + 1);
         break;
       case 'neutral':
-        setNeutral(neutral + 1);
+        setNeutral(prevState => prevState + 1);
         break;
       case 'bad':
-        setBad(bad + 1);
+        setBad(prevState => prevState + 1);
         break;
       default:
         return;
